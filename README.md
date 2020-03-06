@@ -19,10 +19,6 @@ __In this project we will analyze a dataset which contains information about tax
 
 __The dataset is from the file `taxi_data_7.csv` which is not linked in this repository due to its size. Following are the analysis as asked form the above section. Every section would have description, code, output and screenshots of the output as needed.__
 
-### 1.a. Range of data cover
-
-___Logic:___ Taxi trip has initial pickup time and then final dropoff time. Since this dataset has pickup time and dropoff time so we can say that this dataset ranges from minimum value of pickup time(the pickup time of the first ever trip in this dataset) till maximum value of dropoff time(dropoff time of the last trip ever made in this dataset).
-
 Due to its large size we can load data as simple as shown below
 
 ```python
@@ -31,6 +27,32 @@ f = open(fn, "r")
 reader = csv.reader(f)
 ```
 
+### 1.a. Range of data cover
+
+___Logic:___ Taxi trip has initial pickup time and then final dropoff time. Since this dataset has pickup time and dropoff time so we can say that this dataset ranges from minimum value of pickup time(the pickup time of the first ever trip in this dataset) till maximum value of dropoff time(dropoff time of the last trip ever made in this dataset).
+
+Logical Code:
+
+```python
+pickuptime = datetime.strptime(row[5], '%Y-%m-%d %H:%M:%S')
+dropofftime = datetime.strptime(row[6], '%Y-%m-%d %H:%M:%S')
+
+    if min_pickup_time is None:
+        min_pickup_time = pickuptime
+    elif pickuptime < min_pickup_time:
+        min_pickup_time = pickuptime
+
+    if max_dropoff_time is None:
+        max_dropoff_time = dropofftime
+    elif dropofftime > max_dropoff_time:
+        max_dropoff_time = dropofftime
+```
+Output:
+>![Fields Names in the DataSet](/Images/DataRange.png)
+
+> __`Data Ranges from 2013-07-01 00:00:00 (This time is highly unlikely but it could be possible that a taxi picked up some one at that particular time) and till 2013-08-03 13:14:30`__
+
+
 ### 1.b. Number of Rows in this data set
 
 ___Logic:___ Since I am running a single loop for most of the stuff I could just have a counter variable to count the number of rows in that loop.
@@ -38,16 +60,11 @@ ___Logic:___ Since I am running a single loop for most of the stuff I could just
 In a standalone loop it could be as following:
 
 ```python
-n = 0
 number_of_rows = 0
 for row in reader:
-    if n == 0:
-        #this is the header or fields names
-        print(row)
     number_of_rows += 1
-    n += 1
 
-#subtracting number_of_rows by 1 as first row was header
+# subtracting number_of_rows by 1 as first row was header
 print("# of rows:", number_of_rows-1)
 ```
 
