@@ -25,6 +25,6 @@ Logic: Taxi trip has initial pickup time and then final dropoff time. Since this
 
 ## Number of Rows in this data set
 
-Logic: Since I am running a single loop for most of the stuff I could just have a counter variable to count the number of rows
+Logic: Since I am running a single loop for most of the stuff I could just have a counter variable to count the number of rows in that loop.
 
-`This Dataset has 13,823,841 rows`
+__`This Dataset has 13,823,841 rows`__
