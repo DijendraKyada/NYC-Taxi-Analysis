@@ -34,4 +34,6 @@ __`This Dataset has 13,823,841 rows`__
 ___Logic:___ We can show the field names by showing the data of the 1st row (0th Index)
 
 ![Fields Names in the DataSet](/Images/Field_Names.png)
-Format: ![Fields Names in the DataSet](/Images/Field_Names.png)
+
+__Field Names__ | __description__
+-------------|------------
