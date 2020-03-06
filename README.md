@@ -37,3 +37,17 @@ ___Logic:___ We can show the field names by showing the data of the 1st row (0th
 
 __Field Names__ | __description__
 -------------|------------
+Medallion |
+Hack License|
+Vendor ID|
+Rate Code|
+Store and Fwd Flag|
+Pickup Datetime|
+Dropoff Datatime|
+passenger Count|
+Trip time in secs|
+Trip Distance|
+Pickup Longitude|
+Pickup Latitude|
+Dropff Longitude|
+Dropoff Latitude|
