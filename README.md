@@ -44,10 +44,35 @@ Rate Code|
 Store and Fwd Flag|
 Pickup Datetime|
 Dropoff Datatime|
-passenger Count|
+Passenger Count|
 Trip time in secs|
 Trip Distance|
 Pickup Longitude|
 Pickup Latitude|
 Dropff Longitude|
 Dropoff Latitude|
+
+### 3. Some Sample DataSet
+
+___Logic:___ I have iterated the loop till 5 rows to show some sample data
+
+### 4. MySQL data used to store each of the fields
+
+Following is the table showcasing what datatypes and their range could be use to store each fields
+
+__Field Names__ | __MySQL DataType__
+-------------|------------
+medallion |
+hack_license|
+vendor_id|
+rate_code|
+store_and_fwd_flag|
+pickup_datetime|
+dropoff_datatime|
+passenger_count|
+trip_time_in_secs|
+trip_distance|
+pickup_longitude|
+pickup_latitude|
+dropff_longitude|
+dropoff_latitude|
