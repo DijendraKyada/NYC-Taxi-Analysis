@@ -17,6 +17,6 @@
 
 ## Introduction
 
-__The data set is in file `taxi_data_7.csv` which is not linked in this repository due to its size. Following are the analysis as asked form the above section. Every section would have description, code, output and screenshots of the output as needed__
+__The data set is from the file `taxi_data_7.csv` which is not linked in this repository due to its size. Following are the analysis as asked form the above section. Every section would have description, code, output and screenshots of the output as needed.__
 
 ## Number of Rows in this data set
