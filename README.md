@@ -23,11 +23,35 @@ __The dataset is from the file `taxi_data_7.csv` which is not linked in this rep
 
 ___Logic:___ Taxi trip has initial pickup time and then final dropoff time. Since this dataset has pickup time and dropoff time so we can say that this dataset ranges from minimum value of pickup time(the pickup time of the first ever trip in this dataset) till maximum value of dropoff time(dropoff time of the last trip ever made in this dataset).
 
+Due to its large size we can load data as simple as shown below
+
+```python
+fn = 'Sources/trip_data_7.csv'
+f = open(fn, "r")
+reader = csv.reader(f)
+```
+
 ### 1.b. Number of Rows in this data set
 
 ___Logic:___ Since I am running a single loop for most of the stuff I could just have a counter variable to count the number of rows in that loop.
 
->__`This Dataset has 13,823,841 rows`__
+In a standalone loop it could be as following:
+
+```python
+n = 0
+number_of_rows = 0
+for row in reader:
+    if n == 0:
+        #this is the header or fields names
+        print(row)
+    number_of_rows += 1
+    n += 1
+
+#subtracting number_of_rows by 1 as first row was header
+print("# of rows:", number_of_rows-1)
+```
+
+>__`This Dataset has 13,823,840 rows`__
 
 ### 2. Field names and Description
 
