@@ -17,6 +17,14 @@ __In this project we will analyze a dataset which contains information about tax
 
 ## Introduction
 
-__The data set is from the file `taxi_data_7.csv` which is not linked in this repository due to its size. Following are the analysis as asked form the above section. Every section would have description, code, output and screenshots of the output as needed.__
+__The dataset is from the file `taxi_data_7.csv` which is not linked in this repository due to its size. Following are the analysis as asked form the above section. Every section would have description, code, output and screenshots of the output as needed.__
+
+## 1.a Range of data cover
+
+Logic: Taxi trip has initial pickup time and then final dropoff time. Since this dataset has pickup time and dropoff time so we can say that this dataset ranges from minimum value of pickup time(the pickup time of the first ever trip in this dataset) till maximum value of dropoff time(dropoff time of the last trip ever made in this dataset).
 
 ## Number of Rows in this data set
+
+Logic: Since I am running a single loop for most of the stuff I could just have a counter variable to count the number of rows
+
+`This Dataset has 13,823,841 rows`
