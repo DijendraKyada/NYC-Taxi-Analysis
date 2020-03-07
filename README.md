@@ -19,6 +19,13 @@ __In this project we will analyze a dataset which contains information about tax
 
 __The dataset is from the file `taxi_data_7.csv` which is not linked in this repository due to its size. Following are the analysis as asked form the above section. Every section would have description, code, output and screenshots of the output as needed.__
 
+Important imports:
+```python
+import csv
+import time
+from datetime import datetime
+```
+
 Due to its large size we can load data as simple as shown below
 
 ```python
