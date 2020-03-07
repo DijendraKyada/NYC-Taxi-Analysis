@@ -50,7 +50,7 @@ dropofftime = datetime.strptime(row[6], '%Y-%m-%d %H:%M:%S')
 Output:
 >![Fields Names in the DataSet](/Images/DataRange.png)
 
-> __`Data Ranges from 2013-07-01 00:00:00 (This time is highly unlikely but it could be possible that a taxi picked up some one at that particular time) and till 2013-08-03 13:14:30`__
+>___`Data Ranges from 2013-07-01 00:00:00 (this time is highly unlikely but it could be possible that a taxi picked up some one at that particular time) and till 2013-08-03 13:14:30`___
 
 
 ### 1.b. Number of Rows in this data set
@@ -68,34 +68,49 @@ for row in reader:
 print("# of rows:", number_of_rows-1)
 ```
 
->__`This Dataset has 13,823,840 rows`__
+>___`This Dataset has 13,823,840 rows`___
 
 ### 2. Field names and Description
 
 ___Logic:___ We can show the field names by showing the data of the 1st row (0th Index)
 
->![Fields Names in the DataSet](/Images/Field_Names.png)
+>![Fields Names in the DataSet](/Images/FieldNames.png)
 
 __Field Names__ | __Description__
 -------------|------------
-Medallion |
-Hack License|
-Vendor ID|
+Medallion |Permit number to operate the taxi
+Hack License|A New York City Taxi Drivers License number
+Vendor ID|Code of the provider associated with the trip
 Rate Code|
 Store and Fwd Flag|
-Pickup Datetime|
-Dropoff Datatime|
-Passenger Count|
-Trip time in secs|
-Trip Distance|
-Pickup Longitude|
-Pickup Latitude|
-Dropff Longitude|
-Dropoff Latitude|
+Pickup Datetime|Pickup date and time when the meter was engaged
+Dropoff Datatime|Drop off date and time when the meter was disengaged
+Passenger Count|Number of passenger in a particular trip
+Trip time in secs| Time in seconds taken to complete the trip
+Trip Distance|Distance covered to complete the trip
+Pickup Longitude|Pickup geographic Longitude
+Pickup Latitude|Pickup geographic Latitude
+Dropff Longitude|Drop off geographic Longitude
+Dropoff Latitude|Drop off geographic Latitude
 
 ### 3. Some Sample DataSet
 
-___Logic:___ I have iterated the loop till 5 rows to show some sample data
+___Logic:___ We can iterated the loop till 5 rows to show some sample data
+
+Logical Code:
+```python
+n=0
+for row in reader:
+  n=+1
+  #first row would be header
+  print(row)
+  if n > 6
+    break:
+```
+Output:
+
+>![Sample Data from Dataset](/Images/SampleData.png)
+
 
 ### 4. MySQL data used to store each of the fields
 
@@ -117,3 +132,20 @@ pickup_longitude|
 pickup_latitude|
 dropff_longitude|
 dropoff_latitude|
+
+### 5. Geographic Ranges
+
+
+### 6. Distinct Values for each fields
+
+
+### 7. Minimum and Maximum value of the following the following fields
+
+
+### 8. Average number of passengers each hour of the day
+
+
+### 9. New CSV file which has one out of every thousand rows for the Taxi trip DataSet
+
+
+### 10. Comparing data set - with step 8 and 9

@@ -22,6 +22,8 @@ for row in reader:
         print("Header of the file:", row)
     number_of_rows += 1
 
+    if n > 0 and n < 6:
+        print(row)
     # 2013-07-01 01:47:00
     if n > 0:
         pickuptime = datetime.strptime(row[5], '%Y-%m-%d %H:%M:%S')
@@ -37,6 +39,9 @@ for row in reader:
         elif dropofftime > max_dropoff_time:
             max_dropoff_time = dropofftime
     n += 1
+    if n > 20:
+        break
+
 
 # subtracting number_of_rows by 1 as first row was header
 print("# of rows:", number_of_rows-1)
