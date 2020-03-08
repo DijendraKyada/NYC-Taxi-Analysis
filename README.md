@@ -216,7 +216,7 @@ We could also put those min max latitude and longitude of pickup and dropoff in 
 
 __MinPickup__ | __MaxPickup__
 ---------------|---------------
-![MinPickup](/Images/min_pickup.png) | ![MaxPickup](/Images/max_pickup.png)
+![MinPickup](/Images/min_pickup.PNG) | ![MaxPickup](/Images/max_pickup.PNG)
 
 __MinDropoff__ | __MaxDropoff__
 ---------------|---------------
