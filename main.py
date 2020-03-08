@@ -1,7 +1,7 @@
 import csv
 import time
 from datetime import datetime
-from decimal import Decimal
+import matplotlib.pyplot as plt
 
 # initializing start time
 start = time.time()
@@ -23,6 +23,9 @@ pickup_max_lon = None
 pickup_max_lat = None
 dropoff_max_lon = None
 dropoff_max_lat = None
+
+nyc = plt.imread("Images/NYC.png")
+
 
 for row in reader:
     # printing header
@@ -95,7 +98,8 @@ for row in reader:
 
     # incrementing pointer
     n += 1
-    # if n > 20:break
+    if n > 20:
+        break
 
 
 # subtracting number_of_rows by 1 as first row was header
@@ -122,6 +126,19 @@ print("Min Dropoff Latitude:", dropoff_min_lat)
 # Max Pickup
 print("Max Dropoff Longitude:", dropoff_max_lon)
 print("Max Dropoff Latitude:", dropoff_max_lat)
+
+bound = (-74.15, -73.7004, 40.5774, 40.9176)
+#fig = plt.figure(figsize=(8, 7))
+#ax = fig.add_subplot(1, 1, 1)
+fig, ax = plt.subplots(figsize=(8, 7))
+ax.scatter(pickup_min_lon, pickup_min_lat, zorder=1, alpha=0.2, c='b', s=10)
+ax.scatter(pickup_max_lon, pickup_max_lat, zorder=1, alpha=0.2, c='b', s=10)
+ax.scatter(dropoff_min_lon, dropoff_min_lat, zorder=1, alpha=0.2, c='b', s=10)
+ax.scatter(dropoff_max_lon, dropoff_max_lat, zorder=1, alpha=0.2, c='b', s=10)
+ax.set_title('Plotting on Map')
+ax.set_xlim(-74.15, -73.7004)
+ax.set_ylim(40.5774, 40.9176)
+ax.imshow(nyc, zorder=0, extent=bound, aspect='equal')
 
 # printing total time taken to run the script
 print(time.time()-start)
