@@ -23,6 +23,7 @@ Important imports:
 ```python
 import csv
 import time
+import operator
 from datetime import datetime
 import matplotlib.pyplot as plt
 ```
@@ -182,7 +183,7 @@ if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
                 dropoff_max_lat = dropoff_lat
 ```
 
-For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website:[OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100). And then plot using scatter.
+For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website: [OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100). And then plot using scatter.
 
 Visual Code:
 ```python
@@ -211,6 +212,16 @@ Output:
 
 ### 6. Distinct Values for each fields
 
+___Logic:___ Distinct values are use to analyze data in group. We could find distinct values of Medallion, Hack License, Vendor ID, Rate Code, Store and Fwd Flag, Pickup and Dropoff date times, Pickup and dropoff longitude and latitude. But There still would be a lot of data to do analysis. What we can do is, find distinct values and count their occurrence and show top 10 most occurred. In this case finding Distinct value of __Medallion, Hack Licence, Vendor Id and Rate code__ will most make sence. `Distinct values for Store and Fwd Flag are 'Y' and 'N' similar to its description `
+
+Output:
+>![Distinct Value and its count](/Images/Distinctvalueandcount.png)
+
+For showing top 10 most occured items of the distict values if have used sorted() method as following:
+
+```python
+sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10]
+```
 
 ### 7. Minimum and Maximum value of the following the following fields
 

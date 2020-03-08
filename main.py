@@ -1,5 +1,6 @@
 import csv
 import time
+import operator
 from datetime import datetime
 import matplotlib.pyplot as plt
 
@@ -24,6 +25,13 @@ pickup_max_lon = None
 pickup_max_lat = None
 dropoff_max_lon = None
 dropoff_max_lat = None
+medallion = {}
+licence = {}
+vendor = {}
+ratecode = {}
+
+
+nyc = plt.imread("Images/NYC.png")
 
 
 for row in reader:
@@ -55,7 +63,6 @@ for row in reader:
         elif dropofftime > max_dropoff_time:
             max_dropoff_time = dropofftime
 
-        # min and max geo
         if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
             pickup_lon = float(row[10])
             pickup_lat = float(row[11])
@@ -68,7 +75,6 @@ for row in reader:
             min_long = -74.15
             max_long = -73.7004
             '''
-
             # min and max pickup
             if pickup_min_lon is None and pickup_min_lat is None and pickup_max_lon is None and pickup_max_lat is None:
                 pickup_min_lon = pickup_lon
@@ -97,10 +103,32 @@ for row in reader:
                     dropoff_max_lon = dropoff_lon
                     dropoff_max_lat = dropoff_lat
 
+        # Medallion Count
+        if row[0] in medallion:
+            medallion[row[0]] += 1
+        else:
+            medallion[row[0]] = 1
+
+        # Licence Count
+        if row[1] in licence:
+            licence[row[1]] += 1
+        else:
+            licence[row[1]] = 1
+
+        # Vendor count
+        if row[2] in vendor:
+            vendor[row[2]] += 1
+        else:
+            vendor[row[2]] = 1
+
+        # Rate count
+        if row[3] in ratecode:
+            ratecode[row[3]] += 1
+        else:
+            ratecode[row[3]] = 1
+
     # incrementing pointer
     n += 1
-    if n > 20:
-        break
 
 
 # subtracting number_of_rows by 1 as first row was header
@@ -128,9 +156,10 @@ print("Min Dropoff Latitude:", dropoff_min_lat)
 print("Max Dropoff Longitude:", dropoff_max_lon)
 print("Max Dropoff Latitude:", dropoff_max_lat)
 
-# plotting min and max pickup and dropoff on map
-nyc = plt.imread("Images/NYC.png")
+
 bound = (-74.15, -73.7004, 40.5774, 40.9176)
+# fig = plt.figure(figsize=(8, 7))
+# ax = fig.add_subplot(1, 1, 1)
 fig, ax = plt.subplots(figsize=(13.14, 13.10))
 ax.scatter(pickup_min_lon, pickup_min_lat, c='green',
            s=30, label='Min Pickup', marker='s')
@@ -145,6 +174,12 @@ ax.set_xlim(-74.15, -73.7004)
 ax.set_ylim(40.5774, 40.9176)
 ax.legend(loc=4)
 ax.imshow(nyc, extent=bound)
+
+
+print("Medallion: ", sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10])
+print('Hack Licence: ', sorted(licence.items(), key=operator.itemgetter(1), reverse=True)[:10])
+print('Vendor ID: ', sorted(vendor.items(), key=operator.itemgetter(1), reverse=True)[:10])
+print('Rate Code: ', sorted(ratecode.items(), key=operator.itemgetter(1), reverse=True)[:10])
 
 
 # printing total time taken to run the script
