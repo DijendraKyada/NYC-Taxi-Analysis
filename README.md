@@ -56,7 +56,7 @@ dropofftime = datetime.strptime(row[6], '%Y-%m-%d %H:%M:%S')
     elif dropofftime > max_dropoff_time:
         max_dropoff_time = dropofftime
 ```
-Output:
+Output and Result:
 >![Fields Names in the DataSet](/Images/DataRange.png)
 
 >___`Data Ranges from 2013-07-01 00:00:00 (this time is highly unlikely but it could be possible that a taxi picked up some one at that particular time) and till 2013-08-03 13:14:30`___
@@ -76,6 +76,8 @@ for row in reader:
 # subtracting number_of_rows by 1 as first row was header
 print("# of rows:", number_of_rows-1)
 ```
+
+Result:
 
 >___`This Dataset has 13,823,840 rows`___
 
@@ -184,7 +186,7 @@ if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
 ```
 
 Results:
->`Min Pickup Longitude: -74.098373, Min Pickup Latitude: 40.581219, Max Pickup Longitude: -73.776688, Max Pickup Latitude: 40.916344, Min Dropoff Longitude: -74.149223, Min Dropoff Latitude: 40.584255, Max Dropoff Longitude: -73.700539, Max Dropoff Latitude: 40.855907`
+>___`Min Pickup Longitude: -74.098373, Min Pickup Latitude: 40.581219, Max Pickup Longitude: -73.776688, Max Pickup Latitude: 40.916344, Min Dropoff Longitude: -74.149223, Min Dropoff Latitude: 40.584255, Max Dropoff Longitude: -73.700539, Max Dropoff Latitude: 40.8559071`___
 
 For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website: [OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100). And then plot using scatter.
 
@@ -242,6 +244,10 @@ sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10]
 
 ___Logic:___ We dealt with finding minimum and maximum values of Pickup/Dropoff Latitude and Longitude. Also we found out the data range covered by this data set i.e. finding minimum and maximum values of date and time. Besides this we can find minimum and maximum value of `Trip time in sec` and `Trip Distance`.
 
+Output:
+> ___`Minimum trip in sec: 1.0, Maximum trip in sec: 10800.0, Minimum trip distance: 0.01 and Maximum trip distance: 100.0`___
+
+Trip as small as 1.0 second is highly unlikely but may be the meter was engaged and next second disengaged. This could be helpful in some scenario but not in ours.
 
 
 ### 8. Average number of passengers each hour of the day

@@ -4,7 +4,6 @@ import operator
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-
 # initializing start time
 start = time.time()
 
@@ -33,6 +32,7 @@ tripdistance_min = None
 tripdistance_max = None
 tripsec_min = None
 tripsec_max = None
+hour_passenger = {}
 
 
 nyc = plt.imread("Images/NYC.png")
@@ -132,28 +132,36 @@ for row in reader:
             ratecode[row[3]] = 1
 
         # min and max trip in sec
-        if row[8] != '' and row[8] != '0':
+        if row[8] != '':
             tripsec = float(row[8])
-            if tripsec_min is None:
+            if tripsec_min is None and tripsec != 0.0:
                 tripsec_min = tripsec
-            elif tripsec_min > tripsec:
+            elif tripsec_min > tripsec and tripsec != 0.0:
                 tripsec_min = tripsec
-            if tripsec_max is None:
+            if tripsec_max is None and tripsec != 0.0:
                 tripsec_max = tripsec
-            elif tripsec_max < tripsec:
+            elif tripsec_max < tripsec and tripsec != 0.0:
                 tripsec_max = tripsec
 
         # min and max trip distance
-        if row[9] != '' and row[9] != '0':
+        if row[9] != '':
             tripdistance = float(row[9])
-            if tripdistance_min is None:
+            if tripdistance_min is None and tripdistance != 0.0:
                 tripdistance_min = tripdistance
-            elif tripdistance_min > tripdistance:
+            elif tripdistance_min > tripdistance and tripdistance != 0.0:
                 tripdistance_min = tripdistance
-            if tripdistance_max is None:
+            if tripdistance_max is None and tripdistance != 0.0:
                 tripdistance_max = tripdistance
-            elif tripdistance_max < tripdistance:
+            elif tripdistance_max < tripdistance and tripdistance != 0.0:
                 tripdistance_max = tripdistance
+
+        # hourly passengers
+        dt = row[5].split(':')[0]
+        if row[7] != '' and int(row[7]) != 0:
+            if dt in hour_passenger:
+                hour_passenger[dt] += int(row[7])
+            else:
+                hour_passenger[dt] = int(row[7])
 
     # incrementing pointer
     n += 1
@@ -202,6 +210,7 @@ ax.set_xlim(-74.15, -73.7004)
 ax.set_ylim(40.5774, 40.9176)
 ax.legend(loc=4)
 ax.imshow(nyc, extent=bound)
+plt.close()
 
 # Distinct values and its counts
 print("Medallion: ", sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10])
@@ -213,7 +222,12 @@ print('Rate Code: ', sorted(ratecode.items(), key=operator.itemgetter(1), revers
 print("Min Trip in sec:", tripsec_min)
 print("MaxTrip in sec:", tripsec_max)
 print("Min Trip Distance:", tripdistance_min)
-print("Max Trip Ditance:", tripdistance_min)
+print("Max Trip Ditance:", tripdistance_max)
+
+# Hourly Passenger Count
+print("Hourly Passenger: ", hour_passenger)
+plt.bar(list(hour_passenger.keys()), hour_passenger.values(), color='blue')
+plt.show()
 
 
 # printing total time taken to run the script
