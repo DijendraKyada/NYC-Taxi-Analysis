@@ -3,6 +3,7 @@ import time
 from datetime import datetime
 import matplotlib.pyplot as plt
 
+
 # initializing start time
 start = time.time()
 
@@ -23,8 +24,6 @@ pickup_max_lon = None
 pickup_max_lat = None
 dropoff_max_lon = None
 dropoff_max_lat = None
-
-nyc = plt.imread("Images/NYC.png")
 
 
 for row in reader:
@@ -56,6 +55,7 @@ for row in reader:
         elif dropofftime > max_dropoff_time:
             max_dropoff_time = dropofftime
 
+        # min and max pickup
         if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
             pickup_lon = float(row[10])
             pickup_lat = float(row[11])
@@ -68,7 +68,6 @@ for row in reader:
             min_long = -74.15
             max_long = -73.7004
             '''
-            # min and max pickup
             if pickup_min_lon is None and pickup_min_lat is None and pickup_max_lon is None and pickup_max_lat is None:
                 pickup_min_lon = pickup_lon
                 pickup_min_lat = pickup_lat
@@ -127,18 +126,24 @@ print("Min Dropoff Latitude:", dropoff_min_lat)
 print("Max Dropoff Longitude:", dropoff_max_lon)
 print("Max Dropoff Latitude:", dropoff_max_lat)
 
+# plotting min and max pickup and dropoff on map
+nyc = plt.imread("Images/NYC.png")
 bound = (-74.15, -73.7004, 40.5774, 40.9176)
-#fig = plt.figure(figsize=(8, 7))
-#ax = fig.add_subplot(1, 1, 1)
-fig, ax = plt.subplots(figsize=(8, 7))
-ax.scatter(pickup_min_lon, pickup_min_lat, zorder=1, alpha=0.2, c='b', s=10)
-ax.scatter(pickup_max_lon, pickup_max_lat, zorder=1, alpha=0.2, c='b', s=10)
-ax.scatter(dropoff_min_lon, dropoff_min_lat, zorder=1, alpha=0.2, c='b', s=10)
-ax.scatter(dropoff_max_lon, dropoff_max_lat, zorder=1, alpha=0.2, c='b', s=10)
+fig, ax = plt.subplots(figsize=(13.14, 13.10))
+ax.scatter(pickup_min_lon, pickup_min_lat, c='green',
+           s=30, label='Min Pickup', marker='s')
+ax.scatter(pickup_max_lon, pickup_max_lat, zorder=1, alpha=0.9, c='blue',
+           s=30, label='Max Pickup', marker='s')
+ax.scatter(dropoff_min_lon, dropoff_min_lat, zorder=1,
+           alpha=0.9, c='red', s=30, label='Min Dropoff', marker='s')
+ax.scatter(dropoff_max_lon, dropoff_max_lat, zorder=1,
+           alpha=0.9, c='brown', s=30, label='Max Dropoff', marker='s')
 ax.set_title('Plotting on Map')
 ax.set_xlim(-74.15, -73.7004)
 ax.set_ylim(40.5774, 40.9176)
-ax.imshow(nyc, zorder=0, extent=bound, aspect='equal')
+ax.legend(loc=4)
+ax.imshow(nyc, extent=bound)
+
 
 # printing total time taken to run the script
 print(time.time()-start)
