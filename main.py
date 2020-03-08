@@ -55,7 +55,7 @@ for row in reader:
         elif dropofftime > max_dropoff_time:
             max_dropoff_time = dropofftime
 
-        # min and max pickup
+        # min and max geo
         if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
             pickup_lon = float(row[10])
             pickup_lat = float(row[11])
@@ -68,6 +68,8 @@ for row in reader:
             min_long = -74.15
             max_long = -73.7004
             '''
+
+            # min and max pickup
             if pickup_min_lon is None and pickup_min_lat is None and pickup_max_lon is None and pickup_max_lat is None:
                 pickup_min_lon = pickup_lon
                 pickup_min_lat = pickup_lat

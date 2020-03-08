@@ -142,6 +142,48 @@ dropoff_latitude|
 
 ### 5. Geographic Ranges
 
+___Logic:___ Finding minimum and maximum of latitude and longitude for pickup and dropoff is fairly simple as we just have to provide limit - `Latitude goes from -90 to 90` and `Longitude goes from -180 to 180`. But since this dataset is of New York city we can bound the conditions of latidude and longitude accordingly. The boundary of NYC is `min_lat = 40.5774, max_lat = 40.9176, min_long = -74.15, max_long = -73.7004`. We have to do some addition check as some data had N/A or null values.
+
+Logical Code:
+```python
+if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
+        pickup_lon = float(row[10])
+        pickup_lat = float(row[11])
+        dropoff_lon = float(row[12])
+        dropoff_lat = float(row[13])
+
+        # min and max dropoff
+        if pickup_min_lon is None and pickup_min_lat is None and pickup_max_lon is None and pickup_max_lat is None:
+            pickup_min_lon = pickup_lon
+            pickup_min_lat = pickup_lat
+            pickup_max_lon = pickup_lon
+            pickup_max_lat = pickup_lat
+        elif pickup_lat <= 40.9176 and pickup_lat >= 40.5774 and pickup_lon <= -73.7004 and pickup_lon >= -74.15:
+            if pickup_min_lon > pickup_lon and pickup_min_lat > pickup_lat:
+                pickup_min_lon = pickup_lon
+                pickup_min_lat = pickup_lat
+            if pickup_max_lon < pickup_lon and pickup_max_lat < pickup_lat:
+                pickup_max_lon = pickup_lon
+                pickup_max_lat = pickup_lat
+
+        # min and max dropoff
+        if dropoff_min_lon is None and dropoff_min_lat is None and dropoff_max_lon is None and dropoff_max_lat is None:
+            dropoff_min_lon = dropoff_lon
+            dropoff_min_lat = dropoff_lat
+            dropoff_max_lon = dropoff_lon
+            dropoff_max_lat = dropoff_lat
+        elif dropoff_lat <= 40.9176 and dropoff_lat >= 40.5774 and dropoff_lon <= -73.7004 and dropoff_lon >= -74.15:
+            if dropoff_min_lon > dropoff_lon and dropoff_min_lat > dropoff_lat:
+                dropoff_min_lon = dropoff_lon
+                dropoff_min_lat = dropoff_lat
+            if dropoff_max_lon < dropoff_lon and dropoff_max_lat < dropoff_lat:
+                dropoff_max_lon = dropoff_lon
+                dropoff_max_lat = dropoff_lat
+```
+
+Output:
+>![Sample Data from Dataset](/Images/GeoMinMax.png)
+
 
 ### 6. Distinct Values for each fields
 
