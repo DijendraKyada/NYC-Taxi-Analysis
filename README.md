@@ -24,6 +24,7 @@ Important imports:
 import csv
 import time
 from datetime import datetime
+import matplotlib.pyplot as plt
 ```
 
 Due to its large size we can load data as simple as shown below
@@ -179,6 +180,29 @@ if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
             if dropoff_max_lon < dropoff_lon and dropoff_max_lat < dropoff_lat:
                 dropoff_max_lon = dropoff_lon
                 dropoff_max_lat = dropoff_lat
+```
+
+For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this webside: `https://www.openstreetmap.org/export#map=5/51.500/-0.100`. And then plot using scatter.
+
+Visual Code:
+```python
+# plotting min and max pickup and dropoff on map
+nyc = plt.imread("Images/NYC.png")
+bound = (-74.15, -73.7004, 40.5774, 40.9176)
+fig, ax = plt.subplots(figsize=(13.14, 13.10))
+ax.scatter(pickup_min_lon, pickup_min_lat, c='green',
+           s=30, label='Min Pickup', marker='s')
+ax.scatter(pickup_max_lon, pickup_max_lat, zorder=1, alpha=0.9, c='blue',
+           s=30, label='Max Pickup', marker='s')
+ax.scatter(dropoff_min_lon, dropoff_min_lat, zorder=1,
+           alpha=0.9, c='red', s=30, label='Min Dropoff', marker='s')
+ax.scatter(dropoff_max_lon, dropoff_max_lat, zorder=1,
+           alpha=0.9, c='brown', s=30, label='Max Dropoff', marker='s')
+ax.set_title('Plotting on Map')
+ax.set_xlim(-74.15, -73.7004)
+ax.set_ylim(40.5774, 40.9176)
+ax.legend(loc=4)
+ax.imshow(nyc, extent=bound)
 ```
 
 Output:
