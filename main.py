@@ -1,6 +1,7 @@
 import csv
 import time
 from datetime import datetime
+from decimal import Decimal
 
 # initializing start time
 start = time.time()
@@ -52,37 +53,45 @@ for row in reader:
         elif dropofftime > max_dropoff_time:
             max_dropoff_time = dropofftime
 
-        # min pickup
-        if pickup_min_lon is None and pickup_min_lat is None:
-            pickup_min_lon = row[10]
-            pickup_min_lat = row[11]
-        elif pickup_min_lon > row[10] and pickup_min_lat > row[11]:
-            pickup_min_lon = row[10]
-            pickup_min_lat = row[11]
+        if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
+            pickup_lon = float(row[10])
+            pickup_lat = float(row[11])
+            dropoff_lon = float(row[12])
+            dropoff_lat = float(row[13])
+            '''
+            This is the boundary of NYC
+            min_lat = 40.5774
+            max_lat = 40.9176
+            min_long = -74.15
+            max_long = -73.7004
+            '''
+            # min and max pickup
+            if pickup_min_lon is None and pickup_min_lat is None and pickup_max_lon is None and pickup_max_lat is None:
+                pickup_min_lon = pickup_lon
+                pickup_min_lat = pickup_lat
+                pickup_max_lon = pickup_lon
+                pickup_max_lat = pickup_lat
+            elif pickup_lat <= 40.9176 and pickup_lat >= 40.5774 and pickup_lon <= -73.7004 and pickup_lon >= -74.15:
+                if pickup_min_lon > pickup_lon and pickup_min_lat > pickup_lat:
+                    pickup_min_lon = pickup_lon
+                    pickup_min_lat = pickup_lat
+                if pickup_max_lon < pickup_lon and pickup_max_lat < pickup_lat:
+                    pickup_max_lon = pickup_lon
+                    pickup_max_lat = pickup_lat
 
-        # max pickup
-        if pickup_max_lon is None and pickup_max_lat is None:
-            pickup_max_lon = row[10]
-            pickup_max_lat = row[11]
-        elif pickup_max_lon < row[10] and pickup_max_lat < row[11]:
-            pickup_max_lon = row[10]
-            pickup_max_lat = row[11]
-
-        # min dropoff
-        if dropoff_min_lon is None and dropoff_min_lat is None:
-            dropoff_min_lon = row[12]
-            dropoff_min_lat = row[13]
-        elif dropoff_min_lon > row[12] and dropoff_min_lat > row[13]:
-            dropoff_min_lon = row[12]
-            dropoff_min_lat = row[13]
-
-        # max dropoff
-        if dropoff_max_lon is None and dropoff_max_lat is None:
-            dropoff_max_lon = row[12]
-            dropoff_max_lat = row[13]
-        elif dropoff_max_lon < row[12] and dropoff_max_lat < row[13]:
-            dropoff_max_lon = row[12]
-            dropoff_max_lat = row[13]
+            # min and max dropoff
+            if dropoff_min_lon is None and dropoff_min_lat is None and dropoff_max_lon is None and dropoff_max_lat is None:
+                dropoff_min_lon = dropoff_lon
+                dropoff_min_lat = dropoff_lat
+                dropoff_max_lon = dropoff_lon
+                dropoff_max_lat = dropoff_lat
+            elif dropoff_lat <= 40.9176 and dropoff_lat >= 40.5774 and dropoff_lon <= -73.7004 and dropoff_lon >= -74.15:
+                if dropoff_min_lon > dropoff_lon and dropoff_min_lat > dropoff_lat:
+                    dropoff_min_lon = dropoff_lon
+                    dropoff_min_lat = dropoff_lat
+                if dropoff_max_lon < dropoff_lon and dropoff_max_lat < dropoff_lat:
+                    dropoff_max_lon = dropoff_lon
+                    dropoff_max_lat = dropoff_lat
 
     # incrementing pointer
     n += 1
