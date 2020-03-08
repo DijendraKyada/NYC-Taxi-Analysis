@@ -217,6 +217,17 @@ ___Logic:___ Distinct values are use to analyze data in group. We could find dis
 Output:
 >![Distinct Value and its count](/Images/Distinctvalueandcount.png)
 
+>`Min Pickup Longitude: -74.098373
+Min Pickup Latitude: 40.581219
+Max Pickup Longitude: -73.776688
+Max Pickup Latitude: 40.916344
+Min Dropoff Longitude: -74.149223
+Min Dropoff Latitude: 40.584255
+Max Dropoff Longitude: -73.700539
+Max Dropoff Latitude: 40.855907`
+
+The above logic can help as we could identify that
+
 For showing top 10 most occured items of the distict values if have used sorted() method as following:
 
 ```python
