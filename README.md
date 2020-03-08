@@ -182,7 +182,7 @@ if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
                 dropoff_max_lat = dropoff_lat
 ```
 
-For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this webside: `https://www.openstreetmap.org/export#map=5/51.500/-0.100`. And then plot using scatter.
+For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website:[OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100). And then plot using scatter.
 
 Visual Code:
 ```python
