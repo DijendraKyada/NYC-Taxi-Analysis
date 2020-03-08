@@ -220,7 +220,7 @@ __MinPickup__ | __MaxPickup__
 
 __MinDropoff__ | __MaxDropoff__
 ---------------|---------------
-![MinDropoff](/Images/min_dropoff.png) | ![MaxDropoff](/Images/max_dropoff.png)
+![MinDropoff](/Images/min_dropoff.PNG) | ![MaxDropoff](/Images/max_dropoff.PNG)
 
 ### 6. Distinct Values for each fields
 
