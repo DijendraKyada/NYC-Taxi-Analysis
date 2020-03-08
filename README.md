@@ -144,7 +144,7 @@ dropoff_latitude|
 
 ### 5. Geographic Ranges
 
-___Logic:___ Finding minimum and maximum of latitude and longitude for pickup and dropoff is fairly simple as we just have to provide limit - `Latitude goes from -90 to 90` and `Longitude goes from -180 to 180`. But since this dataset is of New York city we can bound the conditions of latidude and longitude accordingly. The boundary of NYC is `min_lat = 40.5774, max_lat = 40.9176, min_long = -74.15, max_long = -73.7004`. We have to do some addition check as some data had N/A or null values.
+___Logic:___ Finding minimum and maximum of latitude and longitude for pickup and dropoff is fairly simple as we just have to provide limit - `Latitude goes from -90 to 90` and `Longitude goes from -180 to 180`. But since this dataset is of New York city we can bound the conditions of latitude and longitude accordingly. The boundary of NYC is `min_lat = 40.5774, max_lat = 40.9176, min_long = -74.15, max_long = -73.7004`. We have to do some addition check as some data had N/A or null values.
 
 Logical Code:
 ```python
@@ -183,6 +183,9 @@ if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
                 dropoff_max_lat = dropoff_lat
 ```
 
+Results:
+>`Min Pickup Longitude: -74.098373, Min Pickup Latitude: 40.581219, Max Pickup Longitude: -73.776688, Max Pickup Latitude: 40.916344, Min Dropoff Longitude: -74.149223, Min Dropoff Latitude: 40.584255, Max Dropoff Longitude: -73.700539, Max Dropoff Latitude: 40.855907`
+
 For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website: [OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100). And then plot using scatter.
 
 Visual Code:
@@ -209,32 +212,36 @@ ax.imshow(nyc, extent=bound)
 Output:
 >![Sample Data from Dataset](/Images/GeoMinMax.png)
 
+We could also put those min max latitude and longitude of pickup and dropoff in google map to see where are they. Such as following:
+
+__MinPickup__ | __MaxPickup__
+---------------|---------------
+![MinPickup](/Images/min_pickup.png) | ![MaxPickup](/Images/max_pickup.png)
+
+__MinDropoff__ | __MaxDropoff__
+---------------|---------------
+![MinDropoff](/Images/min_dropoff.png) | ![MaxDropoff](/Images/max_dropoff.png)
 
 ### 6. Distinct Values for each fields
 
-___Logic:___ Distinct values are use to analyze data in group. We could find distinct values of Medallion, Hack License, Vendor ID, Rate Code, Store and Fwd Flag, Pickup and Dropoff date times, Pickup and dropoff longitude and latitude. But There still would be a lot of data to do analysis. What we can do is, find distinct values and count their occurrence and show top 10 most occurred. In this case finding Distinct value of __Medallion, Hack Licence, Vendor Id and Rate code__ will most make sence. `Distinct values for Store and Fwd Flag are 'Y' and 'N' similar to its description `
+___Logic:___ Distinct values are use to analyze data in group. We could find distinct values of Medallion, Hack License, Vendor ID, Rate Code, Store and Fwd Flag, Pickup and Dropoff date times, Pickup and dropoff longitude and latitude. But There still would be a lot of data to do analysis. What we can do is, find distinct values and count their occurrence and show top 10 most occurred. In this case finding Distinct value of __Medallion, Hack License, Vendor Id and Rate code__ will most make sense. `Distinct values for Store and Fwd Flag are 'Y' and 'N' similar to its description `
 
 Output:
 >![Distinct Value and its count](/Images/Distinctvalueandcount.png)
 
->`Min Pickup Longitude: -74.098373
-Min Pickup Latitude: 40.581219
-Max Pickup Longitude: -73.776688
-Max Pickup Latitude: 40.916344
-Min Dropoff Longitude: -74.149223
-Min Dropoff Latitude: 40.584255
-Max Dropoff Longitude: -73.700539
-Max Dropoff Latitude: 40.855907`
 
-The above logic can help as we could identify that
+The above logic can help us to identify that such as Hack_Licence number: `'CFCD208495D565EF66E7DFF9F98764DA'` made total of `2520` taxi trips, the highest amount of trips.
 
-For showing top 10 most occured items of the distict values if have used sorted() method as following:
+For showing top 10 most occurred items of the distinct values if have used sorted() method as following:
 
 ```python
 sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10]
 ```
 
 ### 7. Minimum and Maximum value of the following the following fields
+
+___Logic:___ We dealt with finding minimum and maximum values of Pickup/Dropoff Latitude and Longitude. Also we found out the data range covered by this data set i.e. finding minimum and maximum values of date and time. Besides this we can find minimum and maximum value of `Trip time in sec` and `Trip Distance`.
+
 
 
 ### 8. Average number of passengers each hour of the day

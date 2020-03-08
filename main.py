@@ -29,6 +29,10 @@ medallion = {}
 licence = {}
 vendor = {}
 ratecode = {}
+tripdistance_min = None
+tripdistance_max = None
+tripsec_min = None
+tripsec_max = None
 
 
 nyc = plt.imread("Images/NYC.png")
@@ -127,6 +131,30 @@ for row in reader:
         else:
             ratecode[row[3]] = 1
 
+        # min and max trip in sec
+        if row[8] != '' and row[8] != '0':
+            tripsec = float(row[8])
+            if tripsec_min is None:
+                tripsec_min = tripsec
+            elif tripsec_min > tripsec:
+                tripsec_min = tripsec
+            if tripsec_max is None:
+                tripsec_max = tripsec
+            elif tripsec_max < tripsec:
+                tripsec_max = tripsec
+
+        # min and max trip distance
+        if row[9] != '' and row[9] != '0':
+            tripdistance = float(row[9])
+            if tripdistance_min is None:
+                tripdistance_min = tripdistance
+            elif tripdistance_min > tripdistance:
+                tripdistance_min = tripdistance
+            if tripdistance_max is None:
+                tripdistance_max = tripdistance
+            elif tripdistance_max < tripdistance:
+                tripdistance_max = tripdistance
+
     # incrementing pointer
     n += 1
 
@@ -175,11 +203,17 @@ ax.set_ylim(40.5774, 40.9176)
 ax.legend(loc=4)
 ax.imshow(nyc, extent=bound)
 
-
+# Distinct values and its counts
 print("Medallion: ", sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10])
 print('Hack Licence: ', sorted(licence.items(), key=operator.itemgetter(1), reverse=True)[:10])
 print('Vendor ID: ', sorted(vendor.items(), key=operator.itemgetter(1), reverse=True)[:10])
 print('Rate Code: ', sorted(ratecode.items(), key=operator.itemgetter(1), reverse=True)[:10])
+
+# Min and Max Trip in sec and Trip Distance
+print("Min Trip in sec:", tripsec_min)
+print("MaxTrip in sec:", tripsec_max)
+print("Min Trip Distance:", tripdistance_min)
+print("Max Trip Ditance:", tripdistance_min)
 
 
 # printing total time taken to run the script
