@@ -12,11 +12,6 @@ fn = 'Sources/trip_data_7.csv'
 f = open(fn, "r")
 reader = csv.reader(f)
 
-# opening the new file and overwriting it with nothing
-f2 = open('Reduce_Taxi_Data.csv', 'w')
-f2.write("")
-f2.close()
-
 n = 0
 number_of_rows = 0
 min_pickup_time = None
@@ -42,9 +37,14 @@ hour_passenger = {}
 
 nyc = plt.imread("Images/NYC.png")
 
-f2 = open('Reduce_Taxi_Data.csv', 'a')
+# opening the new file and overwriting it with nothing
+f2 = open('Sources/Reduce_Taxi_Data.csv', 'w')
+f2.write("")
+f2.close()
+f2 = open('Sources/Reduce_Taxi_Data.csv', 'a')
 writer = csv.writer(f2, delimiter=',', lineterminator='\n')
 
+n = 0
 for i, row in enumerate(reader):
     # printing header
     if i == 0:
@@ -164,7 +164,8 @@ for i, row in enumerate(reader):
                 tripdistance_max = tripdistance
 
         # hourly passengers
-        dt = row[5].split(':')[0]
+        dt = row[5].split(' ')[1]
+        dt = dt.split(':')[0]
         if row[7] != '' and int(row[7]) != 0:
             if dt in hour_passenger:
                 hour_passenger[dt] += int(row[7])
@@ -175,6 +176,7 @@ for i, row in enumerate(reader):
             writer.writerow(row)
 
 
+# Closing reduced data file
 f2.close()
 
 # subtracting number_of_rows by 1 as first row was header
@@ -235,8 +237,7 @@ print("Min Trip Distance:", tripdistance_min)
 print("Max Trip Ditance:", tripdistance_max)
 
 # Hourly Passenger Count
-
-print("Hourly Passenger: ", hour_passenger)
+print(hour_passenger)
 plt.bar(list(hour_passenger.keys()), hour_passenger.values(), color='blue')
 plt.show()
 

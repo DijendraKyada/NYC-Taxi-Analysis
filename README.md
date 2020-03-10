@@ -146,7 +146,7 @@ dropoff_latitude|
 
 ### 5. Geographic Ranges
 
-___Logic:___ Finding minimum and maximum of latitude and longitude for pickup and dropoff is fairly simple as we just have to provide limit - `Latitude goes from -90 to 90` and `Longitude goes from -180 to 180`. But since this dataset is of New York city we can bound the conditions of latitude and longitude accordingly. The boundary of NYC is `min_lat = 40.5774, max_lat = 40.9176, min_long = -74.15, max_long = -73.7004`. We have to do some addition check as some data had N/A or null values.
+___Logic:___ Finding minimum and maximum of latitude and longitude for pickup and dropoff is fairly simple as we just have to provide limit - `Latitude goes from -90 to 90` and `Longitude goes from -180 to 180`. But since this dataset is of New York city we can bound the conditions of latitude and longitude accordingly. The boundary or `Bound Box` of NYC is `min_lat = 40.5774, max_lat = 40.9176, min_long = -74.15, max_long = -73.7004`. We have to do some addition check as some data had N/A or null values.
 
 Logical Code:
 ```python
