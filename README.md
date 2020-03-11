@@ -1,7 +1,7 @@
 # IA626_ParkingViolation
 
 ### Question:
-Â
+
 __In this project we will analyze a dataset which contains information about taxi rides in NYC.  The data set is quite large so getting a basic idea of what the data contains is important.  Each student should use one of the CSV files.  Answer the following questions:__
 
 1. What time range does your data cover?  How many rows are there total?
@@ -92,8 +92,8 @@ __Field Names__ | __Description__
 Medallion |Permit number to operate the taxi
 Hack License|A New York City Taxi Drivers License number
 Vendor ID|Code of the provider associated with the trip
-Rate Code|
-Store and Fwd Flag|
+Rate Code|Some Code of Rate. IT has Numerical value ranging from 1-15
+Store and Fwd Flag|This flag indicates whether the trip record was held in vehicle memory before sending to the vendor
 Pickup Datetime|Pickup date and time when the meter was engaged
 Dropoff Datatime|Drop off date and time when the meter was disengaged
 Passenger Count|Number of passenger in a particular trip
@@ -129,20 +129,20 @@ Following is the table showcasing what datatypes and their range could be use to
 
 __Field Names__ | __MySQL DataType__
 -------------|------------
-medallion |
-hack_license|
-vendor_id|
-rate_code|
-store_and_fwd_flag|
-pickup_datetime|
-dropoff_datatime|
-passenger_count|
-trip_time_in_secs|
-trip_distance|
-pickup_longitude|
-pickup_latitude|
-dropff_longitude|
-dropoff_latitude|
+medallion | Varchar(50)
+hack_license| Varchar(50)
+vendor_id| Varchar(5)
+rate_code| Varchar(5)
+store_and_fwd_flag| Varchar(2)
+pickup_datetime|Datetime
+dropoff_datatime|Datetime
+passenger_count|Int(2)
+trip_time_in_secs|Float(8)
+trip_distance|Float(8)
+pickup_longitude|Float(8)
+pickup_latitude|Float(8)
+dropff_longitude|Float(8)
+dropoff_latitude|Float(8)
 
 ### 5. Geographic Ranges
 
@@ -252,8 +252,138 @@ Trip as small as 1.0 second is highly unlikely but may be the meter was engaged 
 
 ### 8. Average number of passengers each hour of the day
 
+___Logic:___ There are quite a few interpretation we can do on this dataset. We did one of that on latitude and longitude. Another analysis we could do is on number of passengers.
+
+#### 1. Total number of passengers:
+ Before we move any further lets just count the number of passenger. We can count as total number of passenger carried by a taxi in this dataset or total number of passenger took taxi trip in a given. I calculated total number of passengers who took taxi trips in this dataset in a given hour as this will help in further analysis.
+
+ Code: I just used grouping for this.
+
+ ```python
+ # hourly passengers
+     dt = int(row[5][11:13]) #gives hour: 00,01,02,....,23
+     if row[7] != '' and int(row[7]) != 0:
+         if dt in hour_passenger:
+             hour_passenger[int(dt)] += int(row[7])
+         else:
+             hour_passenger[int(dt)] = int(row[7])
+
+ ```
+
+Above code return a dictionary. We could simply display this as a bar chat with use of following code:
+```python
+plt.bar(list(hour_passenger.keys()), hour_passenger.values(), color='grey')
+plt.title('Passenger Count by hours')
+plt.xlabel('Hours')
+plt.ylabel('Count')
+plt.show()
+```
+
+Output:
+>![Hourly Passengers](/Images/Hour_Passenger.png)
+
+
+Result:
+> __From the chat we can see that in this data set hour 5th has least number of total passengers and hour 19th has most__
+
+
+#### 2. Average number of passengers each hour of the day.
+Asking this questions helps us to answer How many passengers on average are riding NYC's taxi on a given hour. We simply divide the count of passenger by hour with total number of days this data set.
+
+Logic: Counting days:
+```python
+day = row[5][8:10] #gives day example 01,02,03,....,28/29/30/31
+    if day in dist_day:
+        dist_day[day] += 1
+    else:
+        dist_day[day] = 1
+```
+Finding average:
+```python
+no_of_days = len(dist_day)
+avg_hour_day_passenger = {k: v / no_of_days for k, v in hour_passenger.items()}
+```
+
+Displaying this as bar chart:
+
+```python
+plt.bar(list(avg_hour_day_passenger.keys()), avg_hour_day_passenger.values(), color='green')
+plt.title('Average number of passenger each hour of the day')
+plt.xlabel('Hour')
+plt.ylabel('Count')
+plt.show()
+```
+
+Output:
+>![Average number of passenger by hour each day](/Images/Avg_Hour_Day_Passengers.png)
+
+Result:
+> __From the chat we can see that in this data set on any given day hour 5th has least number of people riding taxi in NYC and at hour 19th the most__
+
+
+#### 3. Average number of passenger by hour on a given day in a taxi
+
+What if we want to find out what hours are busy? or what time of the day is fairly easy to get a taxi or what time of the day people commute through taxi the most? The easiest way is to find the total number of passenger by hour i.e. what we found in point 1. then average those numbers with the count of the hours.
+
+Logic: Find total number of passengers by hour and counts of hours
+```python
+dt = int(row[5][11:13])
+
+    if row[7] != '' and int(row[7]) != 0:
+        if dt in hour_passenger:
+            hour_passenger[int(dt)] += int(row[7])
+            hour_count[int(dt)] += 1
+        else:
+            hour_passenger[int(dt)] = int(row[7])
+            hour_count[int(dt)] = 1
+```
+
+Now find average:
+```python
+avg_hour_passenger = {x: float(hour_passenger[x])/hour_count[x] for x in hour_count}
+```
+
+We can display results in bar chart:
+
+>![Average number of passenger by hours](/Images/Avg_hour_Passengers.png)
+
+Result:
+> __From the chat we can see that in this data set hour 6th is most likely to have less passenger in a taxi than at hour 00 or 23rd. We can also see that people mostly commute through taxi between 21th and 03rd hour of the day/night and least between 5th and 9th__
+
+
+
 
 ### 9. New CSV file which has one out of every thousand rows for the Taxi trip DataSet
 
+___Logic:___ This is fairly simple to do. We can iterate a loop and put condition that if the row count is divisible by 1000 then write that line into new file. Given this condition writing 1st row of the data is necessary at its the header of the file.
+
+First open the file in write mode and rewrite it with nothing. Basically clearing the data of the file, if it has any:
+
+```python
+f2 = open('Sources/Reduce_Taxi_Data.csv', 'w')
+f2.write("")
+f2.close()
+```
+
+Now again opening the file in append mode and creating a writer object:
+```python
+f2 = open('Sources/Reduce_Taxi_Data.csv', 'a')
+writer = csv.writer(f2, delimiter=',', lineterminator='\n')
+```
+
+Logical code:
+
+```python
+if i % 1000 == 0:
+        writer.writerow(row)
+```
 
 ### 10. Comparing data set - with step 8 and 9
+
+___Logic:___ Since we created a new file containing every 1000th row from our dataset we can repeat step 8 on our reduced dataset.
+
+Results:
+
+__1. Total number of passengers:__
+Original | Reduced
+_________|_________

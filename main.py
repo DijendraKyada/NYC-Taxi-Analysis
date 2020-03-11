@@ -33,6 +33,8 @@ tripdistance_max = None
 tripsec_min = None
 tripsec_max = None
 hour_passenger = {}
+hour_count = {}
+dist_day = {}
 
 
 nyc = plt.imread("Images/NYC.png")
@@ -164,19 +166,28 @@ for i, row in enumerate(reader):
                 tripdistance_max = tripdistance
 
         # hourly passengers
-        dt = row[5].split(' ')[1]
-        dt = dt.split(':')[0]
+        dt = int(row[5][11:13])
+
         if row[7] != '' and int(row[7]) != 0:
             if dt in hour_passenger:
-                hour_passenger[dt] += int(row[7])
+                hour_passenger[int(dt)] += int(row[7])
+                hour_count[int(dt)] += 1
             else:
-                hour_passenger[dt] = int(row[7])
+                hour_passenger[int(dt)] = int(row[7])
+                hour_count[int(dt)] = 1
+
+        day = row[5][8:10]
+        if day in dist_day:
+            dist_day[day] += 1
+        else:
+            dist_day[day] = 1
 
         if i % 1000 == 0:
             writer.writerow(row)
 
 
-# Closing reduced data file
+# Closing data file
+f.close()
 f2.close()
 
 # subtracting number_of_rows by 1 as first row was header
@@ -208,7 +219,7 @@ print("Max Dropoff Latitude:", dropoff_max_lat)
 bound = (-74.15, -73.7004, 40.5774, 40.9176)
 # fig = plt.figure(figsize=(8, 7))
 # ax = fig.add_subplot(1, 1, 1)
-fig, ax = plt.subplots(figsize=(13.14, 13.10))
+fig, ax = plt.subplots(figsize=(14, 10))
 ax.scatter(pickup_min_lon, pickup_min_lat, c='green',
            s=30, label='Min Pickup', marker='s')
 ax.scatter(pickup_max_lon, pickup_max_lat, zorder=1, alpha=0.9, c='blue',
@@ -222,7 +233,8 @@ ax.set_xlim(-74.15, -73.7004)
 ax.set_ylim(40.5774, 40.9176)
 ax.legend(loc=4)
 ax.imshow(nyc, extent=bound)
-plt.close()
+plt.title('Geo Bound')
+plt.show()
 
 # Distinct values and its counts
 print("Medallion: ", sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10])
@@ -237,8 +249,80 @@ print("Min Trip Distance:", tripdistance_min)
 print("Max Trip Ditance:", tripdistance_max)
 
 # Hourly Passenger Count
+sorted(hour_passenger.keys())
+sorted(hour_count.keys())
+no_of_days = len(dist_day)
+avg_hour_passenger = {x: float(hour_passenger[x])/hour_count[x] for x in hour_count}
 print(hour_passenger)
-plt.bar(list(hour_passenger.keys()), hour_passenger.values(), color='blue')
+print(hour_count)
+print(avg_hour_passenger)
+print(dist_day)
+print('len:', no_of_days)
+avg_hour_day_passenger = {k: v / no_of_days for k, v in hour_passenger.items()}
+plt.bar(list(hour_passenger.keys()), hour_passenger.values(), color='grey')
+plt.title('Passenger Count by hours')
+plt.xlabel('Hours')
+plt.ylabel('Count')
+plt.show()
+plt.bar(list(avg_hour_passenger.keys()), avg_hour_passenger.values(), color='blue')
+plt.title('Average number of passenger on a given hour per taxi')
+plt.xlabel('Hour')
+plt.ylabel('Count')
+plt.show()
+plt.bar(list(avg_hour_day_passenger.keys()), avg_hour_day_passenger.values(), color='green')
+plt.title('Average number of passenger each hour of the day')
+plt.xlabel('Hour')
+plt.ylabel('Count')
+plt.show()
+
+# step 8 with reduced data set
+hour_passenger2 = {}
+hour_count2 = {}
+dist_day2 = {}
+fn = 'Sources/Reduce_Taxi_Data.csv'
+f = open(fn, "r")
+reader = csv.reader(f)
+for i, row in enumerate(reader):
+    if i > 0:
+        dt = int(row[5][11:13])
+        if row[7] != '' and int(row[7]) != 0:
+            if dt in hour_passenger2:
+                hour_passenger2[int(dt)] += int(row[7])
+                hour_count2[int(dt)] += 1
+            else:
+                hour_passenger2[int(dt)] = int(row[7])
+                hour_count2[int(dt)] = 1
+        day = row[5][8:10]
+        if day in dist_day2:
+            dist_day2[day] += 1
+        else:
+            dist_day2[day] = 1
+f.close()
+# Hourly Passenger Count
+sorted(hour_passenger2.keys())
+sorted(hour_count2.keys())
+no_of_days2 = len(dist_day2)
+avg_hour_passenger2 = {x: float(hour_passenger2[x])/hour_count2[x] for x in hour_count2}
+print(hour_passenger2)
+print(hour_count2)
+print(avg_hour_passenger2)
+print(dist_day2)
+print('len:', no_of_days2)
+avg_hour_day_passenger2 = {k: v / no_of_days2 for k, v in hour_passenger2.items()}
+plt.bar(list(hour_passenger2.keys()), hour_passenger2.values(), color='grey')
+plt.title('Passenger Count by hours - Reduced Data')
+plt.xlabel('Hours')
+plt.ylabel('Count')
+plt.show()
+plt.bar(list(avg_hour_passenger2.keys()), avg_hour_passenger2.values(), color='blue')
+plt.title('Average number of passenger on a given hour per taxi - Reduced Data')
+plt.xlabel('Hour')
+plt.ylabel('Count')
+plt.show()
+plt.bar(list(avg_hour_day_passenger2.keys()), avg_hour_day_passenger2.values(), color='green')
+plt.title('Average number of passenger each hour of the day - Reduced Data')
+plt.xlabel('Hour')
+plt.ylabel('Count')
 plt.show()
 
 
