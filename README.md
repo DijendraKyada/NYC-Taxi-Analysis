@@ -28,7 +28,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 ```
 
-Due to its large size we can load data as simple as shown below
+Due to its large size we can load data as simple as shown below. This method reads line by line from the disk making it much faster and requires less memory.
 
 ```python
 fn = 'Sources/trip_data_7.csv'
@@ -38,7 +38,7 @@ reader = csv.reader(f)
 
 ### 1.a. Range of data cover
 
-___Logic:___ Taxi trip has initial pickup time and then final dropoff time. Since this dataset has pickup time and dropoff time so we can say that this dataset ranges from minimum value of pickup time(the pickup time of the first ever trip in this dataset) till maximum value of dropoff time(dropoff time of the last trip ever made in this dataset).
+___Logic:___ Taxi trip has initial pickup time and then final dropoff time. Since this dataset has pickup time and dropoff time, we can say that dataset ranges from minimum value of pickup time(the pickup time of the first ever trip in this dataset) till maximum value of dropoff time(dropoff time of the last trip ever made in this dataset).
 
 Logical Code:
 
@@ -59,14 +59,14 @@ dropofftime = datetime.strptime(row[6], '%Y-%m-%d %H:%M:%S')
 Output and Result:
 >![Fields Names in the DataSet](/Images/DataRange.png)
 
->___`Data Ranges from 2013-07-01 00:00:00 (this time is highly unlikely but it could be possible that a taxi picked up some one at that particular time) and till 2013-08-03 13:14:30`___
+>___`Data Ranges from 2013-07-01 00:00:00 (this time is highly unlikely but it could be possible that a taxi picked up some one at that particular time) and till 2013-08-03 13:14:30.`___
 
 
 ### 1.b. Number of Rows in this data set
 
 ___Logic:___ Since I am running a single loop for most of the stuff I could just have a counter variable to count the number of rows in that loop.
 
-In a standalone loop it could be as following:
+In a standalone loop it would look be as following:
 
 ```python
 number_of_rows = 0
@@ -83,7 +83,7 @@ Result:
 
 ### 2. Field names and Description
 
-___Logic:___ We can show the field names by showing the data of the 1st row (0th Index)
+___Logic:___ We can show the field names(header) by showing the data of the 1st row (0th index).
 
 >![Fields Names in the DataSet](/Images/FieldNames.png)
 
@@ -91,8 +91,8 @@ __Field Names__ | __Description__
 -------------|------------
 Medallion |Permit number to operate the taxi
 Hack License|A New York City Taxi Drivers License number
-Vendor ID|Code of the provider associated with the trip
-Rate Code|Some Code of Rate. IT has Numerical value ranging from 1-15
+Vendor ID|Code of the taxi provider(vendor) associated with the trip
+Rate Code|Some Code of Rate. It has Numerical value
 Store and Fwd Flag|This flag indicates whether the trip record was held in vehicle memory before sending to the vendor
 Pickup Datetime|Pickup date and time when the meter was engaged
 Dropoff Datatime|Drop off date and time when the meter was disengaged
@@ -125,7 +125,7 @@ Output:
 
 ### 4. MySQL data used to store each of the fields
 
-Following is the table showcasing what datatypes and their range could be use to store each fields
+Following is the table showcasing what datatypes and range could be use to store each fields in MySQL.
 
 __Field Names__ | __MySQL DataType__
 -------------|------------
@@ -188,7 +188,7 @@ if row[10] != '' and row[11] != '' and row[12] != '' and row[13] != '':
 Results:
 >___`Min Pickup Longitude: -74.098373, Min Pickup Latitude: 40.581219, Max Pickup Longitude: -73.776688, Max Pickup Latitude: 40.916344, Min Dropoff Longitude: -74.149223, Min Dropoff Latitude: 40.584255, Max Dropoff Longitude: -73.700539, Max Dropoff Latitude: 40.8559071`___
 
-For graphing this min max points we can use use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website: [OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100). And then plot using scatter.
+For graphing this min max points we can use `matplotlib` library. I first took a screenshot of the map with the same boundary coordinates given above form this website: [OutStreetMap](https://www.openstreetmap.org/export#map=5/51.500/-0.100) and then plot using scatter method of matplotlib.
 
 Visual Code:
 ```python
@@ -209,12 +209,13 @@ ax.set_xlim(-74.15, -73.7004)
 ax.set_ylim(40.5774, 40.9176)
 ax.legend(loc=4)
 ax.imshow(nyc, extent=bound)
+plt.show()
 ```
 
 Output:
 >![Sample Data from Dataset](/Images/GeoMinMax.png)
 
-We could also put those min max latitude and longitude of pickup and dropoff in google map to see where are they. Such as following:
+We could also put those min-max latitude and longitude of pickup and dropoff points in google map to see where are they. Such as following:
 
 __MinPickup__ | __MaxPickup__
 ---------------|---------------
@@ -226,23 +227,50 @@ __MinDropoff__ | __MaxDropoff__
 
 ### 6. Distinct Values for each fields
 
-___Logic:___ Distinct values are use to analyze data in group. We could find distinct values of Medallion, Hack License, Vendor ID, Rate Code, Store and Fwd Flag, Pickup and Dropoff date times, Pickup and dropoff longitude and latitude. But There still would be a lot of data to do analysis. What we can do is, find distinct values and count their occurrence and show top 10 most occurred. In this case finding Distinct value of __Medallion, Hack License, Vendor Id and Rate code__ will most make sense. `Distinct values for Store and Fwd Flag are 'Y' and 'N' similar to its description `
+___Logic:___ Distinct values are use to analyze data in some situations depending on what you ask. We could find distinct values of Medallion, Hack License, Vendor ID, Rate Code, Store and Fwd Flag, Pickup and Dropoff datetime, Pickup and dropoff longitude and latitude. But there still would be a lot of data to do analysis. What we can do is, find distinct values and count their occurrence and show top 10 most occurred. In this case finding Distinct value of __Medallion, Hack License, Vendor Id and Rate code__ will most make sense. `Distinct values for Store and Fwd Flag are 'Y' and 'N' similar to its description, it indicates if it was store in memory or not, 'Y' and 'N' respectively.`
 
 Output:
 >![Distinct Value and its count](/Images/Distinctvalueandcount.png)
 
 
-The above logic can help us to identify that such as Hack_Licence number: `'CFCD208495D565EF66E7DFF9F98764DA'` made total of `2520` taxi trips, the highest amount of trips.
+__The above logic can help us to identify that Hack_Licence number: `'CFCD208495D565EF66E7DFF9F98764DA'` made total of `2520` taxi trips, the highest amount of trips.__
 
-For showing top 10 most occurred items of the distinct values if have used sorted() method as following:
+For showing top 10 most occurred items of the distinct values I have used sorted() method as following:
 
 ```python
 sorted(medallion.items(), key=operator.itemgetter(1), reverse=True)[:10]
 ```
 
-### 7. Minimum and Maximum value of the following the following fields
+### 7. Minimum and Maximum value of the following fields
 
-___Logic:___ We dealt with finding minimum and maximum values of Pickup/Dropoff Latitude and Longitude. Also we found out the data range covered by this data set i.e. finding minimum and maximum values of date and time. Besides this we can find minimum and maximum value of `Trip time in sec` and `Trip Distance`.
+___Logic:___ We dealt with finding minimum and maximum values of Pickup/Dropoff Latitude and Longitude. Also we found out the data range covered by this data set i.e. finding minimum and maximum values of date and time. Besides this we can find minimum and maximum value of `Trip time in sec` and `Trip Distance`. For this dataset we also have to put condition to ignore '0' values as its logicaly not possible that a taxi took 0 seconds or 0.0 miles to complete the trip.
+
+Code:
+```python
+# min and max trip in sec
+    if row[8] != '':
+        tripsec = float(row[8])
+        if tripsec_min is None and tripsec != 0.0:
+            tripsec_min = tripsec
+        elif tripsec_min > tripsec and tripsec != 0.0:
+            tripsec_min = tripsec
+        if tripsec_max is None and tripsec != 0.0:
+            tripsec_max = tripsec
+        elif tripsec_max < tripsec and tripsec != 0.0:
+            tripsec_max = tripsec
+
+    # min and max trip distance
+    if row[9] != '':
+        tripdistance = float(row[9])
+        if tripdistance_min is None and tripdistance != 0.0:
+            tripdistance_min = tripdistance
+        elif tripdistance_min > tripdistance and tripdistance != 0.0:
+            tripdistance_min = tripdistance
+        if tripdistance_max is None and tripdistance != 0.0:
+            tripdistance_max = tripdistance
+        elif tripdistance_max < tripdistance and tripdistance != 0.0:
+            tripdistance_max = tripdistance
+```
 
 Output:
 > ___`Minimum trip in sec: 1.0, Maximum trip in sec: 10800.0, Minimum trip distance: 0.01 and Maximum trip distance: 100.0`___
