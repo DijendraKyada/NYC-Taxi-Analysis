@@ -344,6 +344,15 @@ avg_hour_passenger = {x: float(hour_passenger[x])/hour_count[x] for x in hour_co
 ```
 
 We can display results in bar chart:
+```python
+plt.bar(list(avg_hour_passenger.keys()), avg_hour_passenger.values(), color='blue')
+plt.title('Average number of passenger on a given hour per taxi')
+plt.xlabel('Hour')
+plt.ylabel('Count')
+plt.show()
+```
+
+Output:
 
 >![Average number of passenger by hours](/Images/Avg_hour_Passengers.png)
 
@@ -382,8 +391,31 @@ if i % 1000 == 0:
 
 ___Logic:___ Since we created a new file containing every 1000th row from our dataset we can repeat step 8 on our reduced dataset.
 
-Results:
+Outputs:
 
 __1. Total number of passengers:__
+
 Original | Reduced
-_________|_________
+----------|------------
+![Hourly Passengers](/Images/Hour_Passenger.png)| ![Reduced Hourly Passengers](/Images/Rd_Hour_Passenger.png)
+
+Result:
+>
+
+__2. Average number of passengers each hour of the day:__
+
+Original | Reduced
+---------|---------
+![Average number of passenger by hour each day](/Images/Avg_Hour_Day_Passengers.png) | ![ Reduced Average number of passenger by hour each day](/Images/Rd_Avg_Hour_Day_Passengers.png)
+
+Result:
+>
+
+__3. Average number of passenger by hour on a given day in a taxi__
+
+Original|Reduced
+---------|---------
+![Average number of passenger by hours](/Images/Avg_hour_Passengers.png)|![Reduced Average number of passenger by hours](/Images/Rd_Avg_hour_Passengers.png)
+
+Result:
+>
