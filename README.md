@@ -357,7 +357,7 @@ Output:
 >![Average number of passenger by hours](/Images/Avg_Hour_Passengers.png)
 
 Result:
-> __From the chat we can see that in this data set hour 6th is most likely to have less passenger in a taxi than at hour 00 or 23rd. We can also see that people mostly commute through taxi between 21th and 03rd hour of the day/night and least between 5th and 9th__
+> __From the chat we can see that in this data set hour 6th is most likely to have less passenger in a taxi than at hour 00 or 23rd. We can also see that people mostly commute through taxi between 21th and 03rd hours of the day/night and least between 5th and 9th hours of the day.__
 
 
 
@@ -400,7 +400,7 @@ Original | Reduced
 ![Hourly Passengers](/Images/Hour_Passenger.png)| ![Reduced Hourly Passengers](/Images/Rd_Hour_Passenger.png)
 
 Result:
->
+> __We can't really compare these 2 charts as its just the total and chart on the left has lot more data than the chart on the right__
 
 __2. Average number of passengers each hour of the day:__
 
@@ -409,7 +409,7 @@ Original | Reduced
 ![Average number of passenger by hour each day](/Images/Avg_Hour_Day_Passengers.png) | ![ Reduced Average number of passenger by hour each day](/Images/Rd_Avg_Hour_Day_Passengers.png)
 
 Result:
->
+> __There is not much difference in this two charts which gives us good indication of our data. That our data is consistent. But we can't deny that there are are few differences in the bar of the chart__
 
 __3. Average number of passenger by hour on a given day in a taxi__
 
@@ -418,4 +418,4 @@ Original|Reduced
 ![Average number of passenger by hours](/Images/Avg_Hour_Passengers.png)|![Reduced Average number of passenger by hours](/Images/Rd_Avg_Hour_Passengers.png)
 
 Result:
->
+> __For me this comparison was most interesting at it changes few of our result from what we got on original data. In the reduced data set hour 07th is most likely to have less passenger in a taxi than at hour 03rd. We can also see that people mostly commute through taxi between 03rd and 04th hours of the day/night and least between 5th and 9th hours of the day__
