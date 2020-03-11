@@ -283,7 +283,7 @@ Trip as small as 1.0 second is highly unlikely but may be the meter was engaged 
 ___Logic:___ There are quite a few interpretation we can do on this dataset. We did one of that on latitude and longitude. Another analysis we could do is on number of passengers.
 
 #### 1. Total number of passengers:
- Before we move any further lets just count the number of passenger. We can count as total number of passenger carried by a taxi in this dataset or total number of passenger took taxi trip in a given. I calculated total number of passengers who took taxi trips in this dataset in a given hour as this will help in further analysis.
+ Before we move any further lets just count the number of passenger. We can count as total number of passenger carried by a taxi in this dataset or total number of passenger took taxi trips. I calculated total number of passengers who took taxi trips in this dataset in a given hour as this will help in further analysis.
 
  Code: I just used grouping for this.
 
@@ -298,7 +298,7 @@ ___Logic:___ There are quite a few interpretation we can do on this dataset. We 
 
  ```
 
-Above code return a dictionary. We could simply display this as a bar chat with use of following code:
+Above code returns a dictionary. We could simply display this as a bar chat with use of following code:
 ```python
 plt.bar(list(hour_passenger.keys()), hour_passenger.values(), color='grey')
 plt.title('Passenger Count by hours')
@@ -312,11 +312,11 @@ Output:
 
 
 Result:
-> __From the chat we can see that in this data set hour 5th has least number of total passengers and hour 19th has most__
+> __From the chart we can see that in this data set hour 05th has least number of total passengers and hour 19th has most__
 
 
 #### 2. Average number of passengers each hour of the day.
-Asking this questions helps us to answer How many passengers on average are riding NYC's taxi on a given hour. We simply divide the count of passenger by hour with total number of days this data set.
+Asking this questions helps us to answer How many passengers on average are riding NYC's taxi on a given hour. We simply divide the count of passenger by hour with total number of days in this data set.
 
 Logic: Counting days:
 ```python
@@ -346,7 +346,7 @@ Output:
 >![Average number of passenger by hour each day](/Images/Avg_Hour_Day_Passengers.png)
 
 Result:
-> __From the chat we can see that in this data set on any given day hour 5th has least number of people riding taxi in NYC and at hour 19th the most__
+> __From the chat we can see that in this dataset on average any given day, hour 5th has least number of people riding taxi in NYC and at hour 19th the most__
 
 
 #### 3. Average number of passenger by hour on a given day in a taxi
