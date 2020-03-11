@@ -354,7 +354,7 @@ plt.show()
 
 Output:
 
->![Average number of passenger by hours](/Images/Avg_hour_Passengers.png)
+>![Average number of passenger by hours](/Images/Avg_Hour_Passengers.png)
 
 Result:
 > __From the chat we can see that in this data set hour 6th is most likely to have less passenger in a taxi than at hour 00 or 23rd. We can also see that people mostly commute through taxi between 21th and 03rd hour of the day/night and least between 5th and 9th__
@@ -415,7 +415,7 @@ __3. Average number of passenger by hour on a given day in a taxi__
 
 Original|Reduced
 ---------|---------
-![Average number of passenger by hours](/Images/Avg_hour_Passengers.png)|![Reduced Average number of passenger by hours](/Images/Rd_Avg_hour_Passengers.png)
+![Average number of passenger by hours](/Images/Avg_Hour_Passengers.png)|![Reduced Average number of passenger by hours](/Images/Rd_Avg_Hour_Passengers.png)
 
 Result:
 >
