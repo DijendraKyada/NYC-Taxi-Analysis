@@ -346,7 +346,7 @@ Output:
 >![Average number of passenger by hour each day](/Images/Avg_Hour_Day_Passengers.png)
 
 Result:
-> __From the chat we can see that in this dataset on average any given day, hour 5th has least number of people riding taxi in NYC and at hour 19th the most__
+> __From the chart we can see that in this dataset on average at any given day, hour 05th has least number of people riding taxi in NYC and at hour 19th the most__
 
 
 #### 3. Average number of passenger by hour on a given day in a taxi
@@ -385,7 +385,7 @@ Output:
 >![Average number of passenger by hours](/Images/Avg_Hour_Passengers.png)
 
 Result:
-> __From the chat we can see that in this data set hour 6th is most likely to have less passenger in a taxi than at hour 00 or 23rd. We can also see that people mostly commute through taxi between 21th and 03rd hours of the day/night and least between 5th and 9th hours of the day.__
+> __From the chart we can see that in this data set hour 06th is most likely to have less passenger in a taxi than at hour 00 or 23rd. We can also see that people mostly commute through taxi between 21th and 03rd hours of the day/night and least between 5th and 9th hours of the day.__
 
 
 
@@ -437,7 +437,7 @@ Original | Reduced
 ![Average number of passenger by hour each day](/Images/Avg_Hour_Day_Passengers.png) | ![ Reduced Average number of passenger by hour each day](/Images/Rd_Avg_Hour_Day_Passengers.png)
 
 Result:
-> __There is not much difference in this two charts which gives us good indication of our data. That our data is consistent. But we can't deny that there are are few differences in the bar of the chart__
+> __There is not much difference in this two charts as well which gives us good indication of our data. That our data is consistent. But we can't deny that there are few differences in the bar of the chart__
 
 __3. Average number of passenger by hour on a given day in a taxi__
 
@@ -446,4 +446,4 @@ Original|Reduced
 ![Average number of passenger by hours](/Images/Avg_Hour_Passengers.png)|![Reduced Average number of passenger by hours](/Images/Rd_Avg_Hour_Passengers.png)
 
 Result:
-> __For me this comparison was most interesting at it changes few of our result from what we got on original data. In the reduced data set hour 07th is most likely to have less passenger in a taxi than at hour 03rd. We can also see that people mostly commute through taxi between 03rd and 04th hours of the day/night and least between 5th and 9th hours of the day__
+> __For me this comparison was most interesting at it changes few of our result from what we got on original data. In the reduced data set hour 07th is most likely to have less passenger in a taxi than at hour 03rd. We can also see that people mostly commute through taxi between 03rd and 04th hours of the day/night and least between 5th and 9th hours of the day.__
